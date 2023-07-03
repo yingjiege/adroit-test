@@ -3,6 +3,7 @@ import CreateDoor from "./door/CreateDoor";
 import CreateCabinet from "./cabinet/CreateCabinet";
 import CreateAccessory from "./accessory/CreateAccssory";
 import { useNavigate  } from "react-router-dom";
+import NavbarAfterLogin from "../navbar/NavbarAfterLogin";
 import Axios from "axios";
 
 function Toggle() {
@@ -100,14 +101,13 @@ function Toggle() {
   const [isCabinetClicked, setCabinetClicked] = useState(false);
   const [isDoorClicked, setDoorClicked] = useState(false);
   const [isAccessoryClicked, setAccessoryClicked] = useState(false);
-  const user_id = "aaaaaaa";
+  const user_id = localStorage.user;
   const order_id = "123123123123";
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const currentDate = new Date();
-
     Axios.post('https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/post_test', {
       user_id: user_id,
       order_id: order_id,
@@ -141,6 +141,8 @@ function Toggle() {
   }
   return (
     <Fragment>
+      <NavbarAfterLogin/>
+
       {/* Toggle buttons */}
       <div className="input-group d-flex justify-content-center">
         {/* Cabinet toggle */}
