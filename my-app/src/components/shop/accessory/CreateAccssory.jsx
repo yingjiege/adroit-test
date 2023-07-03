@@ -15,6 +15,7 @@ function CreateAccessory({ info, accessories, setAccessories }) {
   const [Acc, setAcc] = useState([]);
   const [inf, setInf] = useState({});
   const [customer, setCustomer] = useState([]);
+  const user_id = localStorage.getItem('user');
 
   useEffect(() => {
 
@@ -34,7 +35,7 @@ function CreateAccessory({ info, accessories, setAccessories }) {
       .catch((error) => {
         console.error(error);
       });
-    Axios.get(`https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/get_customer_information`)
+    Axios.get(`https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/get_customer_information?user_id=${user_id}`)
       .then((res) => {
         const searchedCabinet = res.data[0];
         setInf(searchedCabinet)

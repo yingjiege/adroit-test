@@ -30,9 +30,6 @@ function AccTableBody({newItem,
         console.error(error);
       });
   }, []);
-
-    
-  
     return (
       <tr>
         <td>
@@ -53,7 +50,7 @@ function AccTableBody({newItem,
             className="form-control"
             placeholder="Select Accessories"
             name="acc"
-            style={{ width: "14em" }}
+            style={{ width: "14em", margin: "0 auto"  }}
             value={Accitem.acc}
             onChange={(event) => handleEditedAcc(event, Accitem.id, Accitem)} 
             />
@@ -70,7 +67,7 @@ function AccTableBody({newItem,
             className="form-control"
             placeholder="Select ACC Color"
             name="accColor"
-            style={{ width: "12em" }}
+            style={{ width: "12em", margin: "0 auto"  }}
             value={Accitem.accColor} 
             onChange={(event) => handleEditedAcc(event, Accitem.id, Accitem)}
                        />
