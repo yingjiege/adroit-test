@@ -68,7 +68,7 @@ function NewTableBody({
       item.price = NaN;
       item.subtotal = NaN;
     } else setOversize(true);
-  }, [item.width, item.height, item.qty]);
+  }, [item.width, item.height, item.qty, item.price, item.subtotal, item]);
 
   useEffect(() => {
     Cookies.set("cabinetDoor", JSON.stringify(item));
