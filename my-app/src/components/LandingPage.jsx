@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react'
 import BackgroundImage from './assets/bg.png'
+import NavbarBeforeLogin from './navbar/NavbarBeforeLogin'
 
 export default function LandingPage() {
     return (
         <Fragment>
+            <NavbarBeforeLogin/>
             <div style={HeaderStyle}/>
         </Fragment>
     )
