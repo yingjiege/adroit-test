@@ -1,26 +1,27 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Axios from "axios";
-
-
+import NavbarAfterLogin from "../navbar/NavbarAfterLogin";
 import "../../App.css";
 
 export default function AccountSetting() {
   const navigate = useNavigate();
   const [info, setInfo] = useState({})
+  const user_id = localStorage.getItem('user');
+
   useEffect(() => {
-      Axios.get(`https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/get_customer_information`)
+      Axios.get(`https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/get_customer_information?user_id=${user_id}`)
       .then((res) => {
-        const searchedCabinet = res.data[0];
-        setInfo(searchedCabinet)
+        const user = res.data[0];
+        setInfo(user)
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
 
-
   return(<Fragment>
+    <NavbarAfterLogin/>
     <div class="container">
 
     <main>
@@ -79,7 +80,7 @@ export default function AccountSetting() {
       </div>
       <div class="col-md-7 col-lg-8">
         <h4 class="mb-3">Billing address</h4>
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation" noValidate>
         <div class="row g-3">
     <div class="col-sm-6">
       <label for="firstName" class="form-label">First name</label>
@@ -88,8 +89,8 @@ export default function AccountSetting() {
         class="form-control" 
         id="firstName" 
         placeholder="" 
-        value={info.first_name} 
-        onChange={(e) => setInfo({ ...info, first_name: e.target.value })}
+        value={info.firstName} 
+        onChange={(e) => setInfo({ ...info, firstName: e.target.value })}
         required
       />
       <div class="invalid-feedback">
@@ -104,8 +105,8 @@ export default function AccountSetting() {
         class="form-control" 
         id="lastName" 
         placeholder=""
-        value={info.last_name}
-        onChange={(e) => setInfo({ ...info, last_name: e.target.value })}
+        value={info.lastName}
+        onChange={(e) => setInfo({ ...info, lastName: e.target.value })}
         required
       />
       <div class="invalid-feedback">
@@ -122,34 +123,14 @@ export default function AccountSetting() {
           id="company" 
           placeholder="Company" 
           required
-          value={info.company}
-          onChange={(e) => setInfo({ ...info, company: e.target.value })}
+          value={info.companyName}
+          onChange={(e) => setInfo({ ...info, companyName: e.target.value })}
         />
         <div class="invalid-feedback">
           Your company is required.
         </div>
       </div>
     </div>
-
-    <div class="col-12">
-      <label for="username" class="form-label">Username</label>
-      <div class="input-group has-validation">
-        <span class="input-group-text">@</span>
-        <input
-          type="text"
-          class="form-control"
-          id="username"
-          placeholder="Username"
-          value={info.username}
-          onChange={(e) => setInfo({ ...info, username: e.target.value })}
-          required
-        />              
-        <div class="invalid-feedback">
-          Your username is required.
-        </div>
-      </div>
-    </div>
-
     <div class="col-12">
       <label for="email" class="form-label">Email <span class="text-body-secondary">(Optional)</span></label>
       <input 
@@ -173,34 +154,11 @@ export default function AccountSetting() {
         id="address" 
         placeholder="1234 Main St" 
         required
-        value={info.address}
-        onChange={(e) => setInfo({ ...info, address: e.target.value })}
+        value={info.street}
+        onChange={(e) => setInfo({ ...info, street: e.target.value })}
       />
       <div class="invalid-feedback">
         Please enter your shipping address.
-      </div>
-    </div>
-
-    <div class="col-12">
-      <label for="address2" class="form-label">Address 2 <span class="text-body-secondary">(Optional)</span></label>
-      <input 
-        type="text" 
-        class="form-control" 
-        id="address2" 
-        placeholder="Apartment or suite"
-        value={info.address2}
-        onChange={(e) => setInfo({ ...info, address2: e.target.value })}
-      />
-    </div>
-
-    <div class="col-md-5">
-      <label for="country" class="form-label">Country</label>
-      <select class="form-select" id="country" required>
-        <option value="">Choose...</option>
-        <option value="United States" selected>United States</option>
-      </select>
-      <div class="invalid-feedback">
-        Please select a valid country.
       </div>
     </div>
 
@@ -210,7 +168,7 @@ export default function AccountSetting() {
         type="text" 
         class="form-control" 
         id="state" 
-        placeholder=""
+        placeholder="State"
         value={info.state}
         onChange={(e) => setInfo({ ...info, state: e.target.value })}
       />
@@ -219,17 +177,31 @@ export default function AccountSetting() {
         Please provide a valid state.
       </div>
     </div>
-
-    <div class="col-md-3">
-      <label for="zip" class="form-label">Zip</label>
+    <div class="col-md-4">
+      <label for="city" class="form-label">City</label>
       <input 
         type="text" 
         class="form-control" 
-        id="zip" 
+        id="city" 
+        placeholder="City"
+        value={info.city}
+        onChange={(e) => setInfo({ ...info, city: e.target.value })}
+      />
+      <div class="invalid-feedback">
+        Please provide a valid city.
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <label for="zipcode" class="form-label">Zip</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        id="zipcode" 
         placeholder="" 
         required
-        value={info.zip}
-        onChange={(e) => setInfo({ ...info, zip: e.target.value })}
+        value={info.zipcode}
+        onChange={(e) => setInfo({ ...info, zipcode: e.target.value })}
       />
       <div class="invalid-feedback">
         Zip code required.
