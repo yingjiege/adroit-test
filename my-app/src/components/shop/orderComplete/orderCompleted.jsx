@@ -6,10 +6,20 @@ function OrderCompleted() {
 
   const navigate = useNavigate();
   const handleGoBack = () => {
+    // Get the "user" item from local storage
+    const userItem = localStorage.getItem('user');
+    
+    // Clear the local storage
     localStorage.clear();
+    
+    // Restore the "user" item in local storage
+    if (userItem) {
+      localStorage.setItem('user', userItem);
+    }
+    
+    // Navigate to the main page
     navigate('/');
   };
-
   return (
     <div>
       <div className="container mt-2" style={{ width: '1000px' }}>
