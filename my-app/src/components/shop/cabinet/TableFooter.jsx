@@ -1,4 +1,4 @@
-import React,  {useState} from "react";
+import React, { useState } from "react";
 
 function TableFooter(props) {
   const items = props.items;
@@ -10,9 +10,9 @@ function TableFooter(props) {
     testTotal += Number(items[row].price);
     totalQty += Number(items[row].qty);
   }
-  
+
   testTotal = +(Math.round(testTotal + "e+2") + "e-2");
-   
+
   function handleClick(n) {
     props.onAdd(n);
   }
@@ -25,17 +25,16 @@ function TableFooter(props) {
   return (
     <tfoot>
       <tr>
-      <td colSpan="5" align="right">
+        <td colSpan="5" align="right">
           total items
         </td>
         <td>{totalQty}</td>
         <td colSpan="7" align="right">
-        ${testTotal}
+          ${testTotal}
         </td>
       </tr>
       <tr>
         <td colSpan="3">
-        <div className="input-group d-flex align-items-center">
           <i
             className="bi bi-plus-circle-fill btn btn-secondary"
             onClick={() => handleClick(addNumberOfRow)}
@@ -51,13 +50,12 @@ function TableFooter(props) {
             onChange={(event) => handleAddRowNumber(event)}
             style={{ width: "auto", maxWidth: "150px" }}
           />
-        </div>
         </td>
         <td colSpan="4">
           <i
             className="bi bi-file-earmark-pdf-fill btn btn-primary"
             onClick={props.printPDF}
-            style={{ color: "white", borderStyle: "solid",width: "auto",maxWidth: "150px" }}
+            style={{ color: "white", borderStyle: "solid", width: "auto", maxWidth: "150px" }}
           >
             PDF
           </i>

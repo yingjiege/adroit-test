@@ -13,7 +13,6 @@ import PrintFooter from "./PrintFooter";
 function CreateCabinet({ info, items, setItems }) {
   const [cabinet, setCabinet] = useState([]);
   const [cabinetDoor, setCabinetDoor] = useState([]);
-  const [Acc, setAcc] = useState([]);
   const [customer, setCustomer] = useState([]);
   const [addOn, setAddOn] = useState([]);
   const [cabinetFinish, setCabinetFinish] = useState([]);
@@ -30,6 +29,8 @@ function CreateCabinet({ info, items, setItems }) {
     cabinetLeg: "None",
     discount: 100,
   });
+  const user_id = localStorage.getItem('user');
+
 
   useEffect(() => {
     Axios.get(
@@ -42,21 +43,10 @@ function CreateCabinet({ info, items, setItems }) {
       .catch((error) => {
         console.error(error);
       });
-      Axios.get(`https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/get_customer_information`)
+      Axios.get(`https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/get_customer_information?user_id=${user_id}`)
       .then((res) => {
         const searchedCabinet = res.data[0];
         setInf(searchedCabinet)
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
-    Axios.get(
-      "https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/accessory"
-    )
-      .then((res) => {
-        const searchedCabinet = res.data;
-        setAcc(searchedCabinet);
       })
       .catch((error) => {
         console.error(error);
@@ -121,16 +111,12 @@ function CreateCabinet({ info, items, setItems }) {
   const getAddOnHardware = (custom) => {
     return addOn.find(cab => cab.AddOnHardware === custom);
   }
-  const getAcc = (id) => {
-    return Acc.find(cab => cab.ACC === id);
-  }
 
   const componentPDF = useRef();
   const generatePDF = useReactToPrint({
     content: () => componentPDF.current,
     documentTile: "UserData",
   });  
-
   function updateRow(event) {
       const fieldName = event.target.getAttribute("name");
       const fieldValue = event.target.value;
@@ -155,8 +141,6 @@ function CreateCabinet({ info, items, setItems }) {
   
     setItems(updatedItems);
   }
-
-  
   function calculation(obj, select){
     const finLorR = obj.finLOrR;
     const notchOut = obj.notchOut;
@@ -179,7 +163,7 @@ function CreateCabinet({ info, items, setItems }) {
     let slide = select.slide;
     let slideNum = 0;
     let discount = 1 ;
-    const Sindex = customer.findIndex((item) => item.Company.toUpperCase() === inf.company.toUpperCase());
+    const Sindex = customer.findIndex((item) => item.Company.toUpperCase() === inf.companyName.toUpperCase());
     if(Sindex !== -1){
       discount = customer[Sindex].MULTIPIER.toFixed(2)
     }

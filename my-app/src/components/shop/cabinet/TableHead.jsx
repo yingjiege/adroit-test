@@ -3,7 +3,6 @@ import Axios from "axios";
 
 
 function TableHead({item,handleEditAllInOne}) {
-  
   const [cabinetDoor, setCabinetDoor] = useState([]);
   useEffect(() => {
     Axios.get(`https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/cabinet_door`)
@@ -18,7 +17,6 @@ function TableHead({item,handleEditAllInOne}) {
   return (
     <thead className="table-success">
           <tr>
-          
             <th colSpan={6} className="needBorder" style={{ textAlign: 'right' }}>*CABINET BOX:</th>
             <th>
             <select
@@ -51,8 +49,8 @@ function TableHead({item,handleEditAllInOne}) {
                 <option value="BLUM">BLUM</option>
               </select>
             </th>
-            <th colSpan={3} rowSpan={5} className="needBorder"></th>
-            <th colSpan={3} rowSpan={5} className="needBorder"></th>
+            <th colSpan={3} rowSpan={4} className="needBorder"></th>
+            <th colSpan={3} rowSpan={4} className="needBorder"></th>
           </tr>
           <tr>
             <th colSpan={6}className="needBorder" style={{ textAlign: 'right' }}>*A DOOR COLOR:</th>
@@ -63,6 +61,7 @@ function TableHead({item,handleEditAllInOne}) {
                     className="form-control"
                     name="ADoorColor"
                     value={item.ADoorColor}
+                    style={{ margin: "0 auto"  }}
                     onChange={(event) => handleEditAllInOne(event,  item)}
                     />
                 <datalist id="dataAdoor">
@@ -79,6 +78,7 @@ function TableHead({item,handleEditAllInOne}) {
                 className="form-control"
                 name="slide"
                 value={item.slide}
+                style={{ margin: "0 auto"  }}
                 onChange={(event) => handleEditAllInOne(event,  item)}
                 >
                   <option value="">-- Select --</option>
@@ -97,6 +97,7 @@ function TableHead({item,handleEditAllInOne}) {
                   className="form-control"
                   name="BDoorColor"
                   value={item.BDoorColor}
+                  style={{ margin: "0 auto"  }}
                   onChange={(event) => handleEditAllInOne(event,  item)}
                   />
             <datalist id="dataBdoor">
@@ -112,6 +113,7 @@ function TableHead({item,handleEditAllInOne}) {
                 className="form-control"
                 name="drawer"
                 value={item.drawer}
+                style={{ margin: "0 auto"  }}
                 onChange={(event) => handleEditAllInOne(event,  item)}
                 >
                   <option value="">-- Select --</option>
@@ -131,6 +133,7 @@ function TableHead({item,handleEditAllInOne}) {
                 list="dataCdoor"
                 className="form-control"
                 name="CDoorColor"
+                style={{ margin: "0 auto"  }}
                 value={item.CDoorColor}
                 onChange={(event) => handleEditAllInOne(event,  item)}
                 />
@@ -138,7 +141,8 @@ function TableHead({item,handleEditAllInOne}) {
               {cabinetDoor.map((item, key) => (
                 <option key={key} value={item.color} />
               ))}
-            </datalist></th>
+            </datalist>
+            </th>
 
             <th className="needBorder">CABINET LEG:</th>
             <th>
@@ -156,11 +160,6 @@ function TableHead({item,handleEditAllInOne}) {
               </select>
             </th>
           </tr>
-
-          <tr>
-
-            <th colSpan={12}></th>
-          </tr>
       <tr>
         <th className="text-center">Cabinet</th>
         <th className="text-center">Copy</th>
@@ -171,8 +170,8 @@ function TableHead({item,handleEditAllInOne}) {
         <th className="text-center">Width(inch)</th>
         <th className="text-center">Height(inch)</th>
         <th className="text-center">Depth</th>
-        <th className="text-center">Hinge L/R</th>
-        <th className="text-center">Finish L/R</th>
+        <th className="text-center">Hinge L/R(optional)</th>
+        <th className="text-center">Finish L/R(optional)</th>
         <th  colSpan="2" className="text-center">Price</th>
       </tr>
     </thead>
