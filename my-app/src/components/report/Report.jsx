@@ -1,5 +1,7 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Chart } from "react-google-charts";
+import axios from 'axios';
+import NavbarAfterLogin from "../navbar/NavbarAfterLogin";
 
 export const data = [
   ["Year", "Sales", "Expenses"],
@@ -16,22 +18,23 @@ export const options = {
 };
 
 export default function Report() {  
-  const userId = 'aaaaaaaaa';
+  const [order,setOrder] = useState({})
+  const user_id = localStorage.getItem('user');
 
-// Make an HTTP request to retrieve the order history
-fetch(`/api/orders?user_id=${userId}`)
-  .then(response => response.json())
-  .then(data => {
-    // Process the retrieved order history data
-    console.log(data);
+// Make the GET request to retrieve the order list
+axios.get(`https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/get_order_history?user_id=${user_id}`)  
+.then((response) => {
+    // Handle the response data
+    setOrder(response.data)
+    // Perform further operations with the order list
   })
-  .catch(error => {
-    // Handle any errors that occur during the request
+  .catch((error) => {
+    // Handle any errors
     console.error(error);
   });
-
   return (
     <Fragment>
+      <NavbarAfterLogin/>
       <div className="container-fluid">
         <div className="row">
           <nav
