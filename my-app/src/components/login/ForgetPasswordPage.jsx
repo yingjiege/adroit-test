@@ -1,10 +1,12 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
+import NavbarBeforeLogin from "../navbar/NavbarBeforeLogin";
 
 import "../../App.css";
 export default function ForgetPasswordPage() {
   return (
     <Fragment>
+      <NavbarBeforeLogin/>
       <div className="col-md-10 mx-auto col-lg-5">
         <h2>Reset your password</h2>
         <h5>Enter your email address and we will send you a new password</h5>
